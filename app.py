@@ -1,17 +1,12 @@
-import datetime
-import time
 import requests  
 
-PROMETHEUS = 'http://prometheus-server:80'
+PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
-end_of_month = datetime.datetime.today().replace(day=1).date()
 
-last_day = end_of_month - datetime.timedelta(days=1)
-duration = '[' + str(last_day.day) + 'd]'
+def get_data(prometheus_url, query):
+  response =requests.get(prometheus_url + '/api/v1/query', params={'query': query})
+  results = response.json()['data']['result']
 
-response =requests.get(PROMETHEUS + '/api/v1/query', params={'query': 'kube_pod_container_resource_requests'})
-results = response.json()['data']['result']
+  return results
 
-print('{:%B %Y}:'.format(last_day))
-for result in results:
-  print(' {metric}: {value[1]}'.format(**result))
+print(get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests'))

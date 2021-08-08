@@ -12,12 +12,11 @@ pod_list = []
 prometheus_api.get_requests_from_prometheus(pod_list)
 prometheus_api.get_limits_from_prometheus(pod_list)
 
-'''
+
 for pod in pod_list:
-  print(pod.pod_name)
-  print(pod.cpu_req)
+  print(pod)
   print("-----")
-'''
+
 
 '''
 git add . ; git commit -m "upgraded" ; git push

@@ -38,7 +38,7 @@ def get_limits_from_prometheus(pod_list):
 
 
 def get_cpu_usage_from_prometheus(pod_list):
-    metrics = get_data('http://prometheus-server:80', 'sum(irate(container_cpu_usage_seconds_total{namespace!="kube-*",container!=""}[2m]))by(node,pod)')
+    metrics = get_data('http://prometheus-server:80', 'sum(irate(container_cpu_usage_seconds_total{container!=""}[2m]))by(node,pod)')
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])

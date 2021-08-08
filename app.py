@@ -46,6 +46,8 @@ def get_pod_index(pod_name):
     
   return False
 
+
+
 def get_data(prometheus_url, query):
   response =requests.get(prometheus_url + '/api/v1/query', params={'query': query})
   results = response.json()['data']['result']
@@ -56,7 +58,16 @@ metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_r
 
 for metric in metrics:
   pod = Pods(metric['metric']['pod'])
-  pod_list.append(pod)
+  pod_index = get_pod_index(pod.pod_name)
+  
+  if pod_index == False:
+    pod_list.append(pod)
+    pod_index = len(pod_list) - 1
+
+  if metric['metric']['resource'] == 'cpu':
+    pod_list[pod_index].cpu_req = metric['value'][1]
+  elif metric['metric']['resource'] == 'memory':
+    pod_list[pod_index].mem_req = metric['value'][1]
   #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
 
 

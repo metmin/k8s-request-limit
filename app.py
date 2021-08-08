@@ -7,7 +7,7 @@ PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 # TODO: slack entegrasyonu
 
 class Pods:
-  def __init__(self, pod, cluster):
+  def __init__(self, pod, cluster = 'deneme'):
   #def __init__(self, pod, cluster, cpu_req, cpu_limit, cpu_usage, mem_req, mem_limit, mem_usage):
       self.pod = pod
       self.cluster = cluster
@@ -42,13 +42,14 @@ def get_data(prometheus_url, query):
 
 metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
 
+liste = []
 
-
-'''
 for metric in metrics:
-  print("-------------")
-  print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
-'''
+  pod = Pods(metric['metric']['pod'])
+  liste.append(pod)
+  #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
+
+print(liste)
 
 '''
 git add .

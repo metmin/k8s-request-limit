@@ -63,7 +63,7 @@ for metric in metrics:
   pod_index = get_pod_index(pod.pod_name)
   
   if pod_index == False:
-    print("sa")
+    print("sa " + metric['metric']['pod'])
     pod_list.append(pod)
     pod_index = len(pod_list) - 1
 

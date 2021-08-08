@@ -58,7 +58,7 @@ metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_r
 
 
 for metric in metrics:
-  print(metrics)
+  print(metric)
   pod = Pods(metric['metric']['pod'])
   pod_index = get_pod_index(pod.pod_name)
   

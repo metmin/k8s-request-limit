@@ -20,7 +20,4 @@ def get_requests_from_prometheus(pod_list):
             pod_list.append(pod)
             pod_index = len(pod_list) - 1
 
-        if metric['metric']['resource'] == 'cpu':
-            pod_list[pod_index].cpu_req = metric['value'][1]
-        elif metric['metric']['resource'] == 'memory':
-            pod_list[pod_index].mem_req = metric['value'][1]
+        pod_list[pod_index].set_pod_requests(metric['metric']['resource'], metric['value'][1])

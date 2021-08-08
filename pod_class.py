@@ -13,9 +13,11 @@ class Pods:
       '''
   
   # Prometheus sorgularından gelen cevaplar ayrı ayrı listeye kaydedilmesi için farklı fonksiyonlar ayarlandı (Kullanılmayabilir).
-  def set_pod_requests(self, cpu_req, mem_req):
-      self.cpu_req = cpu_req
-      self.mem_req = mem_req
+  def set_pod_requests(self, resource, value):
+      if resource == 'cpu':
+          self.cpu_req = value
+      elif resource == 'memory':
+          self.mem_req = value
 
   def set_pod_limits(self, cpu_limit, mem_limit):
       self.cpu_limit = cpu_limit

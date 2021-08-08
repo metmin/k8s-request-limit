@@ -24,5 +24,8 @@ def get_data(prometheus_url, query):
 
   return results
 
-data = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
-print(data[0]['metric'])
+metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
+
+for metric in metrics:
+  print("-------------")
+  print(metric)

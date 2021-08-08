@@ -6,15 +6,31 @@ PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 # TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak.
 # TODO: slack entegrasyonu
 
-class obj:
-  def __init__(self, pod, cluster, cpu_req, cpu_limit, cpu_usage, mem_req, mem_limit, mem_usage):
+class Pods:
+  def __init__(self, pod, cluster):
+  #def __init__(self, pod, cluster, cpu_req, cpu_limit, cpu_usage, mem_req, mem_limit, mem_usage):
       self.pod = pod
       self.cluster = cluster
+      '''
       self.cpu_req = cpu_req
       self.cpu_limit = cpu_limit
       self.cpu_usage = cpu_usage
       self.mem_req = mem_req
       self.mem_limit = mem_limit
+      self.mem_usage = mem_usage
+      '''
+  def setPodRequests(self, cpu_req, mem_req):
+      self.cpu_req = cpu_req
+      self.mem_req = mem_req
+
+  def setPodLimits(self, cpu_limit, mem_limit):
+      self.cpu_limit = cpu_limit
+      self.mem_limit = mem_limit
+  
+  def setPodCpuUsage(self, cpu_usage):
+      self.cpu_usage = cpu_usage
+  
+  def setPodMemoryUsage(self, mem_usage):
       self.mem_usage = mem_usage
 
 
@@ -26,10 +42,13 @@ def get_data(prometheus_url, query):
 
 metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
 
+
+
+'''
 for metric in metrics:
   print("-------------")
   print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
-
+'''
 
 '''
 git add .

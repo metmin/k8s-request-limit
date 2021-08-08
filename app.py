@@ -28,4 +28,11 @@ metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_r
 
 for metric in metrics:
   print("-------------")
-  print(metric)
+  print(metric['pod'], metric['value'][2])
+
+
+'''
+git add .
+git commit -m "upgraded"
+git push
+'''

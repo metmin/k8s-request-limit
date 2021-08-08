@@ -55,8 +55,10 @@ def get_memory_usage_from_prometheus(pod_list):
     metrics = get_data('http://prometheus-server:80', 'avg(container_memory_working_set_bytes{image=""})by(pod)')
 
     for metric in metrics:
-        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
+        print(metric)
+
         """
+        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
         if pod_index == -1:
             pod = pod_class.Pod(metric['metric']['pod'])
             pod_list.append(pod)

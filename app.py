@@ -65,6 +65,7 @@ for metric in metrics:
   if pod_index == False:
     pod_list.append(pod)
     pod_index = len(pod_list) - 1
+    print(pod_index)
 
   if metric['metric']['resource'] == 'cpu':
     pod_list[pod_index].cpu_req = metric['value'][1]

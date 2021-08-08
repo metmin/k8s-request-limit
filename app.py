@@ -19,19 +19,22 @@ class Pods:
       self.mem_limit = mem_limit
       self.mem_usage = mem_usage
       '''
-  def setPodRequests(self, cpu_req, mem_req):
+  def set_pod_requests(self, cpu_req, mem_req):
       self.cpu_req = cpu_req
       self.mem_req = mem_req
 
-  def setPodLimits(self, cpu_limit, mem_limit):
+  def set_pod_limits(self, cpu_limit, mem_limit):
       self.cpu_limit = cpu_limit
       self.mem_limit = mem_limit
   
-  def setPodCpuUsage(self, cpu_usage):
+  def set_pod_cpu_usage(self, cpu_usage):
       self.cpu_usage = cpu_usage
   
-  def setPodMemoryUsage(self, mem_usage):
+  def set_pod_memory_usage(self, mem_usage):
       self.mem_usage = mem_usage
+
+  def get_pod_name(self):
+    return self.pod
 
 
 def get_data(prometheus_url, query):
@@ -50,7 +53,7 @@ for metric in metrics:
   #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
 
 deneme = liste[2]
-print(deneme)
+print(deneme.get_pod_name())
 
 '''
 git add .

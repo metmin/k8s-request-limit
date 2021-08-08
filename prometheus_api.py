@@ -14,7 +14,7 @@ def set_pod_requests(pod_list):
 
     for metric in metrics:
         pod = pod_class.Pods(metric['metric']['pod'])
-        pod_index = pod_funcs.get_pod_index(pod.pod_name)
+        pod_index = pod_funcs.get_pod_index(pod_list, pod.pod_name)
         
         if pod_index == -1:
             pod_list.append(pod)

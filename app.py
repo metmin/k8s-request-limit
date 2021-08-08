@@ -70,13 +70,11 @@ for metric in metrics:
     pod_list[pod_index].cpu_req = metric['value'][1]
   elif metric['metric']['resource'] == 'memory':
     pod_list[pod_index].mem_req = metric['value'][1]
-  #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
 
 
 for pod in pod_list:
   print(pod.pod_name)
   print(pod.cpu_req)
-  print(pod.mem_req)
   print("-----")
 
 '''

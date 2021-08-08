@@ -75,6 +75,9 @@ for metric in metrics:
 
 for pod in pod_list:
   print(pod.pod_name)
+  print(pod.cpu_req)
+  print(pod.mem_req)
+  print("-----")
 
 '''
 git add .

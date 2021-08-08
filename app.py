@@ -72,7 +72,7 @@ for metric in metrics:
 
 
 for pod in pod_list:
-  print(get_pod_index(pod.pod_name))
+  print(pod.pod_name)
 
 '''
 git add .

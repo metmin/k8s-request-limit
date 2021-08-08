@@ -12,7 +12,7 @@ class Pods:
       self.mem_usage = mem_usage
       '''
   
-  # Prometheus sorgularından gelen cevaplar ayrı ayrı listeye kaydedilmesi için farklı fonksiyonlar ayarlandı.
+  # Prometheus sorgularından gelen cevaplar ayrı ayrı listeye kaydedilmesi için farklı fonksiyonlar ayarlandı (Kullanılmayabilir).
   def set_pod_requests(self, cpu_req, mem_req):
       self.cpu_req = cpu_req
       self.mem_req = mem_req

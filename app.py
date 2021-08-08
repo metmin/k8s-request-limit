@@ -1,4 +1,4 @@
-import requests
+import prometheus_api
 import pod_class
 
 PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
@@ -22,14 +22,7 @@ def get_pod_index(pod_name):
 
 
 
-
-def get_data(prometheus_url, query):
-  response =requests.get(prometheus_url + '/api/v1/query', params={'query': query})
-  results = response.json()['data']['result']
-
-  return results
-
-metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
+metrics = prometheus_api.get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
 
 
 for metric in metrics:

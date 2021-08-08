@@ -9,7 +9,7 @@ PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
 pod_list = []
 
-prometheus_api.set_pod_requests(pod_list)
+prometheus_api.get_requests_from_prometheus(pod_list)
 
 for pod in pod_list:
   print(pod.pod_name)

@@ -9,7 +9,7 @@ def get_data(prometheus_url, query):
   return results
 
 
-def set_pod_requests(pod_list):
+def get_requests_from_prometheus(pod_list):
     metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
 
     for metric in metrics:

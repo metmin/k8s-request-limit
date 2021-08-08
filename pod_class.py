@@ -32,9 +32,3 @@ class Pod:
           self.cpu_limit = value
       elif resource == 'memory':
           self.mem_limit = value
-  
-  def set_pod_cpu_usage(self, cpu_usage):
-      self.cpu_usage = cpu_usage
-  
-  def set_pod_memory_usage(self, mem_usage):
-      self.mem_usage = mem_usage

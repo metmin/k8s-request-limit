@@ -41,7 +41,7 @@ def get_pod_index(pod_name):
   index = 0
   for pod in pod_list:
     if pod.pod_name == pod_name:
-      print(pod.pod_name + " => " + pod_name)
+      # print(pod.pod_name + " => " + pod_name)
       return index
     index = index + 1
     
@@ -67,6 +67,9 @@ for metric in metrics:
   if pod_index == False:
     pod_list.append(pod)
     pod_index = len(pod_list) - 1
+
+  print(pod_index)
+  print("---------------")
 
   if metric['metric']['resource'] == 'cpu':
     pod_list[pod_index].cpu_req = metric['value'][1]

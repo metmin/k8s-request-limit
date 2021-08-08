@@ -1,6 +1,6 @@
 import requests
 import pod_class
-import pod_funcs
+import pod_list_funcs
 
 def get_data(prometheus_url, query):
   response = requests.get(prometheus_url + '/api/v1/query', params={'query': query})
@@ -14,7 +14,7 @@ def get_requests_from_prometheus(pod_list):
 
     for metric in metrics:
         pod = pod_class.Pods(metric['metric']['pod'])
-        pod_index = pod_funcs.get_pod_index(pod_list, pod.pod_name)
+        pod_index = pod_list_funcs.get_pod_index(pod_list, pod.pod_name)
         
         if pod_index == -1:
             pod_list.append(pod)

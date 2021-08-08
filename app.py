@@ -1,4 +1,5 @@
-import requests  
+import requests
+from requests.api import get  
 
 PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
@@ -7,9 +8,9 @@ PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 # TODO: slack entegrasyonu
 
 class Pods:
-  def __init__(self, pod, cluster = 'deneme'):
+  def __init__(self, pod_name, cluster = 'deneme'):
   #def __init__(self, pod, cluster, cpu_req, cpu_limit, cpu_usage, mem_req, mem_limit, mem_usage):
-      self.pod = pod
+      self.pod_name = pod_name
       self.cluster = cluster
       '''
       self.cpu_req = cpu_req
@@ -35,6 +36,15 @@ class Pods:
   def set_pod_memory_usage(self, mem_usage):
       self.mem_usage = mem_usage
 
+pod_list = []
+def get_pod_index(pod_name):
+  index = 0
+  for pod in pod_list:
+    if pod.pod_name == pod_name:
+      return index
+    index = index + 1
+    
+  return False
 
 def get_data(prometheus_url, query):
   response =requests.get(prometheus_url + '/api/v1/query', params={'query': query})
@@ -44,17 +54,14 @@ def get_data(prometheus_url, query):
 
 metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_requests')
 
-liste = []
-
 for metric in metrics:
   pod = Pods(metric['metric']['pod'])
-  liste.append(pod)
+  pod_list.append(pod)
   #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
 
-for deneme in liste:
-  print(deneme.pod)
-  print(deneme.cluster)
-  print("------")
+
+for pod in pod_list:
+  print(get_pod_index(pod.pod_name))
 
 '''
 git add .

@@ -49,7 +49,8 @@ for metric in metrics:
   liste.append(pod)
   #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
 
-print(liste[0]['pod'])
+deneme = liste[2]
+print(deneme)
 
 '''
 git add .

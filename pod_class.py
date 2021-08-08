@@ -19,8 +19,7 @@ class Pod:
       self.mem_limit = mem_limit
       self.mem_usage = mem_usage
       '''
-  
-  # Prometheus sorgularından gelen cevaplar ayrı ayrı listeye kaydedilmesi için farklı fonksiyonlar ayarlandı (Kullanılmayabilir).
+
   def set_pod_requests(self, resource, value):
       if resource == 'cpu':
           self.cpu_req = value

@@ -1,5 +1,4 @@
-import requests
-from requests.api import get  
+import requests 
 
 PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
@@ -45,7 +44,7 @@ def get_pod_index(pod_name):
       return index
     index = index + 1
     
-  return False
+  return -1
 
 
 
@@ -62,14 +61,10 @@ for metric in metrics:
 
   pod = Pods(metric['metric']['pod'])
   pod_index = get_pod_index(pod.pod_name)
-  print(pod_index)
   
-  if pod_index == False:
+  if pod_index == -1:
     pod_list.append(pod)
     pod_index = len(pod_list) - 1
-
-  print(pod_index)
-  print("---------------")
 
   if metric['metric']['resource'] == 'cpu':
     pod_list[pod_index].cpu_req = metric['value'][1]

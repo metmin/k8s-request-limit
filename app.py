@@ -40,7 +40,6 @@ pod_list = []
 def get_pod_index(pod_name):
   index = 0
   for pod in pod_list:
-    print(pod.pod_name + " => " + pod_name)
     if pod.pod_name == pod_name:
       return index
     index = index + 1

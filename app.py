@@ -19,6 +19,8 @@ class Pods:
       self.mem_limit = mem_limit
       self.mem_usage = mem_usage
       '''
+  
+  # Prometheus sorgularından gelen cevaplar ayrı ayrı listeye kaydedilmesi için farklı fonksiyonlar ayarlandı.
   def set_pod_requests(self, cpu_req, mem_req):
       self.cpu_req = cpu_req
       self.mem_req = mem_req
@@ -32,9 +34,6 @@ class Pods:
   
   def set_pod_memory_usage(self, mem_usage):
       self.mem_usage = mem_usage
-
-  def get_pod_name(self):
-    return self.pod
 
 
 def get_data(prometheus_url, query):
@@ -52,8 +51,10 @@ for metric in metrics:
   liste.append(pod)
   #print(metric['metric']['pod'] + " => " + metric['metric']['resource'] + metric['value'][2])
 
-deneme = liste[2]
-print(deneme.pod)
+for deneme in liste:
+  print(deneme.pod)
+  print(deneme.cluster)
+  print("------")
 
 '''
 git add .

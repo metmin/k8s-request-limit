@@ -28,7 +28,7 @@ metrics = get_data('http://prometheus-server:80', 'kube_pod_container_resource_r
 
 for metric in metrics:
   print("-------------")
-  print(metric['metric']['pod'])
+  print("{metric['metric']['pod']} => {metric['metric']['resource']}")
 
 
 '''

@@ -1,6 +1,5 @@
 import prometheus_api
 import pod_list_funcs
-import slack_api
 import config
 
 #PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.

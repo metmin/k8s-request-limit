@@ -1,6 +1,7 @@
 import requests
 import pod_class
 import config
+import pod_list_funcs
 
 def get_ignores():
     ignore_namespaces = [
@@ -42,7 +43,7 @@ def get_requests_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     metrics = get_data(prometheus_url, query)
 
     for metric in metrics:
-        pod_index = pod_class.get_pod_index(pod_list, metric['metric']['pod'])
+        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
         
         if pod_index == -1:
             pod = pod_class.Pod(metric['metric']['pod'])
@@ -58,7 +59,7 @@ def get_limits_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     metrics = get_data(prometheus_url, query)
 
     for metric in metrics:
-        pod_index = pod_class.get_pod_index(pod_list, metric['metric']['pod'])
+        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
         
         if pod_index == -1:
             pod = pod_class.Pod(metric['metric']['pod'])
@@ -74,7 +75,7 @@ def get_cpu_usage_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     metrics = get_data(prometheus_url, query)
     
     for metric in metrics:
-        pod_index = pod_class.get_pod_index(pod_list, metric['metric']['pod'])
+        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
         
         if pod_index == -1:
             pod = pod_class.Pod(metric['metric']['pod'])
@@ -91,7 +92,7 @@ def get_memory_usage_from_prometheus(pod_list, prometheus_url = config.PROMETHEU
 
     for metric in metrics:
 
-        pod_index = pod_class.get_pod_index(pod_list, metric['metric']['pod'])
+        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
         if pod_index == -1:
             pod = pod_class.Pod(metric['metric']['pod'])
             pod_list.append(pod)

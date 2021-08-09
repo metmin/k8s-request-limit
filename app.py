@@ -1,5 +1,11 @@
 import prometheus_api
 import pod_list_funcs
+import yaml
+from yaml.loader import SafeLoader
+
+with open('config.yaml') as f:
+    data = yaml.load(f, Loader=SafeLoader)
+    print(data)
 
 PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 

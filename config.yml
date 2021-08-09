@@ -1,0 +1,2 @@
+---
+  prometheus_server: http://prometheus-server:80

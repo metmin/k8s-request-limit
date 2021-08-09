@@ -2,6 +2,31 @@ import requests
 import pod_class
 import pod_list_funcs
 
+def get_ignores():
+    ignore_namespaces = [
+    "consul",
+    #"default",
+    "external",
+    "gatekeeper-system",
+    "goldilocks",
+    "istio-system",
+    "kube-node-lease",
+    "kube-public",
+    "kube-system",
+    "logging",
+    "monitoring",
+    "platform",
+    "ratelimit",
+    "security"
+    ]
+
+    query = ""
+    for namespace in ignore_namespaces:
+        query += 'namespace!="{namespace}",' 
+
+    return query
+
+
 # TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak.
 
 def get_data(prometheus_url, query):
@@ -40,7 +65,8 @@ def get_limits_from_prometheus(pod_list, prometheus_url):
 
 
 def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
-    metrics = get_data(prometheus_url, 'sum(irate(container_cpu_usage_seconds_total{container!=""}[2m]))by(node,pod)')
+    query = get_ignores()
+    metrics = get_data(prometheus_url, 'sum(irate(container_cpu_usage_seconds_total{'+ query +'container!=""}[2m]))by(node,pod)')
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
@@ -54,7 +80,8 @@ def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
 
 
 def get_memory_usage_from_prometheus(pod_list, prometheus_url):
-    metrics = get_data(prometheus_url, 'avg(container_memory_working_set_bytes{pod!="",image=""})by(pod)')
+    query = get_ignores()
+    metrics = get_data(prometheus_url, 'avg(container_memory_working_set_bytes{'+ query +'pod!="",image=""})by(pod)')
 
     for metric in metrics:
 

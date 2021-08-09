@@ -22,7 +22,7 @@ def get_ignores():
 
     query = ""
     for namespace in ignore_namespaces:
-        query += 'namespace!="{namespace}",' 
+        query += f'namespace!="{namespace}",' 
 
     return query
 

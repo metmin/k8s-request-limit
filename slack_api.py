@@ -7,7 +7,7 @@ def send_notification(webhook_url):
     webhook = WebhookClient(webhook_url)
 
     response = webhook.send(
-        text="fallback",
+        text="Request Usage Difference Detected",
         blocks=[
             {
                 "type": "section",

@@ -1,14 +1,7 @@
 import prometheus_api
 import pod_list_funcs
 import slack_api
-import yaml
-from yaml.loader import SafeLoader
-
-with open('config.yml') as f:
-    data = yaml.load(f, Loader=SafeLoader)
-    print(data)
-    PROMETHEUS = data['prometheus_server']
-    webhook_url = data['webhook_url']
+import config
 
 #PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
@@ -19,13 +12,13 @@ with open('config.yml') as f:
 
 pod_list = []
 
-slack_api.send_notification(webhook_url)
+slack_api.send_notification(config.WEBHOOK_URL)
 
 """
-prometheus_api.get_requests_from_prometheus(pod_list, PROMETHEUS)
-prometheus_api.get_limits_from_prometheus(pod_list, PROMETHEUS)
-prometheus_api.get_cpu_usage_from_prometheus(pod_list, PROMETHEUS)
-prometheus_api.get_memory_usage_from_prometheus(pod_list, PROMETHEUS)
+prometheus_api.get_requests_from_prometheus(pod_list, PROMETHEUS, CLUSTER_NAME)
+prometheus_api.get_limits_from_prometheus(pod_list, PROMETHEUS, CLUSTER_NAME)
+prometheus_api.get_cpu_usage_from_prometheus(pod_list, PROMETHEUS, CLUSTER_NAME)
+prometheus_api.get_memory_usage_from_prometheus(pod_list, PROMETHEUS, CLUSTER_NAME)
 pod_list_funcs.calculate_cpu_diff(pod_list)
 """
 

@@ -23,8 +23,8 @@ def calculate_cpu_diff(pod_list):
     mem_usage = int(pod.mem_usage) / 1024 / 1024
 
     print(pod.pod_name)
-    print(cpu_req + " => " + cpu_usage)
-    print(mem_req + " => " + mem_usage)
+    print(f"{cpu_req} => {cpu_usage}")
+    print(f"{mem_req} => {mem_usage}")
     print("-----")
 
   return 0

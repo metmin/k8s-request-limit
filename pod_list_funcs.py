@@ -17,9 +17,9 @@ def calculate_cpu_diff(pod_list):
   for pod in pod_list:
 
     if pod.cpu_req == "" or pod.mem_req == "" or pod.cpu_usage == "0":
-      # TODO: Slack kanalına ayarlanmadığı ile ilgili mesaj göndersin.
+      # TODO: Slack kanalına ayarlanmadığı ile ilgili mesaj göndersin. - DONE
       # TODO: cpu kullanımı 0'sa da mesaj basabilir. 
-      slack_api.send_error_notification(config.WEBHOOK_URL)
+      slack_api.send_error_notification(config.WEBHOOK_URL, pod)
       continue
 
     cpu_req   = float(pod.cpu_req)

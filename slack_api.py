@@ -18,7 +18,7 @@ def send_diff_notification(webhook_url, pod, cpu_diff, mem_diff):
         ]
     )
 
-def send_error_notification(webhook_url):
+def send_error_notification(webhook_url, pod):
     webhook = WebhookClient(webhook_url)
 
     response = webhook.send(
@@ -28,7 +28,7 @@ def send_error_notification(webhook_url):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "There is an error about cpu or memory request"
+                    "text": f"There is an error about {pod.cluster}/{pod.pod_name} cpu or memory request"
                 }
             }
         ]

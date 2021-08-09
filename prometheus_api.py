@@ -81,6 +81,7 @@ def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
 
 def get_memory_usage_from_prometheus(pod_list, prometheus_url):
     query = get_ignores()
+    print(query)
     metrics = get_data(prometheus_url, 'avg(container_memory_working_set_bytes{'+ query +'pod!="",image=""})by(pod)')
 
     for metric in metrics:

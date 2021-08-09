@@ -37,7 +37,9 @@ def get_data(prometheus_url, query):
 
 # Bu ve altındaki fonksiyonları birleştirebiliriz.
 def get_requests_from_prometheus(pod_list, prometheus_url):
-    metrics = get_data(prometheus_url, 'kube_pod_container_resource_requests')
+    ignores = get_ignores()
+    query = 'kube_pod_container_resource_requests{'+ ignores +'}'
+    metrics = get_data(prometheus_url, query)
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
@@ -51,7 +53,9 @@ def get_requests_from_prometheus(pod_list, prometheus_url):
 
 
 def get_limits_from_prometheus(pod_list, prometheus_url):
-    metrics = get_data(prometheus_url, 'kube_pod_container_resource_limits')
+    ignores = get_ignores()
+    query = 'kube_pod_container_resource_limits{'+ ignores +'}'
+    metrics = get_data(prometheus_url, query)
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])

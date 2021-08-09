@@ -1,4 +1,4 @@
-from slack_api import send_notification
+import slack_api
 import config
 
 def get_pod_index(pod_list, pod_name):
@@ -18,26 +18,18 @@ def calculate_cpu_diff(pod_list):
 
     if pod.cpu_req == "" or pod.mem_req == "" or pod.cpu_usage == "0":
       # TODO: Slack kanalına ayarlanmadığı ile ilgili mesaj göndersin.
-      # TODO: cpu kullanımı 0'sa da mesaj basabilir.
+      # TODO: cpu kullanımı 0'sa da mesaj basabilir. 
+      slack_api.send_error_notification(config.WEBHOOK_URL)
       continue
 
     cpu_req   = float(pod.cpu_req)
     cpu_usage = float(pod.cpu_usage)
     mem_req   = int(pod.mem_req)   / 1024 / 1024
     mem_usage = int(pod.mem_usage) / 1024 / 1024
-  
+    
+    # abs(usage - request) / usage * 100  
     cpu_diff =  abs(cpu_usage - cpu_req) / cpu_usage * 100
     mem_diff =  abs(mem_usage - mem_req) / mem_usage * 100
 
     if cpu_diff > 10000 or mem_diff > 150:
-
-    # abs(usage - request) / usage * 100 
-
-      send_notification(config.WEBHOOK_URL, pod, cpu_diff)
-
-      # print(pod.pod_name)
-      # print(f"{cpu_req} => {cpu_usage} => {cpu_diff}")
-      # print(f"{mem_req} => {mem_usage} => {mem_diff}")
-      # print("-----")
-
-  return 0
+      slack_api.send_diff_notification(config.WEBHOOK_URL, pod, cpu_diff, mem_diff)

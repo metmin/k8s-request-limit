@@ -5,9 +5,8 @@ import config
 
 #PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
-# TODO: kube_pod_container_resource_requests conf dosyasından çekilecek.
-# TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak.
-# TODO: slack entegrasyonu
+# TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak. - GitLab ci üzerinden ayarlanması içinçalışılacak.
+# TODO: slack entegrasyonu - DONE
 
 
 pod_list = []

@@ -1,5 +1,8 @@
 import prometheus_api
-import pod_class
+import pod_list_funcs
+import config
+
+#PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
 # TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak. - GitLab ci üzerinden ayarlanması içinçalışılacak.
 # TODO: slack entegrasyonu - DONE
@@ -7,13 +10,11 @@ import pod_class
 
 pod_list = []
 
-
-# Default olarak verildi. İstenirse parametre olarak da geçirilebilir.
-prometheus_api.get_requests_from_prometheus(pod_list)
-prometheus_api.get_limits_from_prometheus(pod_list)
-prometheus_api.get_cpu_usage_from_prometheus(pod_list)
-prometheus_api.get_memory_usage_from_prometheus(pod_list)
-pod_class.calculate_cpu_diff(pod_list)
+prometheus_api.get_requests_from_prometheus(pod_list, config.PROMETHEUS)
+prometheus_api.get_limits_from_prometheus(pod_list, config.PROMETHEUS)
+prometheus_api.get_cpu_usage_from_prometheus(pod_list, config.PROMETHEUS)
+prometheus_api.get_memory_usage_from_prometheus(pod_list, config.PROMETHEUS)
+pod_list_funcs.calculate_cpu_diff(pod_list)
 
 
 """

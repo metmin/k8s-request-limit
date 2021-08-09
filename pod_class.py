@@ -1,3 +1,5 @@
+import config
+
 class Pod:
   cpu_req = ""
   cpu_limit = ""
@@ -6,7 +8,7 @@ class Pod:
   mem_limit = ""
   mem_usage = ""
   
-  def __init__(self, pod_name, cluster = 'deneme'):
+  def __init__(self, pod_name, cluster = config.CLUSTER_NAME):
   #def __init__(self, pod, cluster, cpu_req, cpu_limit, cpu_usage, mem_req, mem_limit, mem_usage):
       self.pod_name = pod_name
       self.cluster = cluster

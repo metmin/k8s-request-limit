@@ -1,3 +1,6 @@
+from slack_api import send_notification
+import config
+
 def get_pod_index(pod_list, pod_name):
   index = 0
   for pod in pod_list:
@@ -23,16 +26,18 @@ def calculate_cpu_diff(pod_list):
     mem_req   = int(pod.mem_req)   / 1024 / 1024
     mem_usage = int(pod.mem_usage) / 1024 / 1024
   
-    cpu_diff =  abs(cpu_usage - cpu_req) / cpu_usage * 100    
-    mem_diff =  abs(mem_usage - mem_req) / mem_usage * 100    
+    cpu_diff =  abs(cpu_usage - cpu_req) / cpu_usage * 100
+    mem_diff =  abs(mem_usage - mem_req) / mem_usage * 100
 
     if cpu_diff > 10000 or mem_diff > 150:
 
     # abs(usage - request) / usage * 100 
 
-      print(pod.pod_name)
-      print(f"{cpu_req} => {cpu_usage} => {cpu_diff}")
-      print(f"{mem_req} => {mem_usage} => {mem_diff}")
-      print("-----")
+      send_notification(config.WEBHOOK_URL, pod, cpu_diff)
+
+      # print(pod.pod_name)
+      # print(f"{cpu_req} => {cpu_usage} => {cpu_diff}")
+      # print(f"{mem_req} => {mem_usage} => {mem_diff}")
+      # print("-----")
 
   return 0

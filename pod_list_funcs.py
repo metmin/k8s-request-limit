@@ -26,11 +26,13 @@ def calculate_cpu_diff(pod_list):
     cpu_diff =  abs(cpu_usage - cpu_req) / cpu_usage * 100    
     mem_diff =  abs(mem_usage - mem_req) / mem_usage * 100    
 
+    if cpu_diff > 10000 or mem_diff > 150:
+
     # abs(usage - request) / usage * 100 
 
-    print(pod.pod_name)
-    print(f"{cpu_req} => {cpu_usage} => {cpu_diff}")
-    print(f"{mem_req} => {mem_usage} => {mem_diff}")
-    print("-----")
+      print(pod.pod_name)
+      print(f"{cpu_req} => {cpu_usage} => {cpu_diff}")
+      print(f"{mem_req} => {mem_usage} => {mem_diff}")
+      print("-----")
 
   return 0

@@ -65,8 +65,10 @@ def get_limits_from_prometheus(pod_list, prometheus_url):
 
 
 def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
-    query = get_ignores()
-    metrics = get_data(prometheus_url, 'sum(irate(container_cpu_usage_seconds_total{'+ query +'container!=""}[2m]))by(node,pod)')
+    ignores = get_ignores()
+    query = 'sum(irate(container_cpu_usage_seconds_total{'+ ignores +'container!=""}[2m]))by(node,pod)'
+    print(query)
+    metrics = get_data(prometheus_url, query)
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
@@ -81,7 +83,6 @@ def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
 
 def get_memory_usage_from_prometheus(pod_list, prometheus_url):
     query = get_ignores()
-    print(query)
     metrics = get_data(prometheus_url, 'avg(container_memory_working_set_bytes{'+ query +'pod!="",image=""})by(pod)')
 
     for metric in metrics:

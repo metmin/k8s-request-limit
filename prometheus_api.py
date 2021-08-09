@@ -1,6 +1,7 @@
 import requests
 import pod_class
 import pod_list_funcs
+import config
 
 def get_ignores():
     ignore_namespaces = [
@@ -29,14 +30,14 @@ def get_ignores():
 
 # TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak.
 
-def get_data(prometheus_url, query):
+def get_data(query, prometheus_url = config.PROMETHEUS):
   response = requests.get(prometheus_url + '/api/v1/query', params={'query': query})
   results = response.json()['data']['result']
   return results
 
 
 # Bu ve altındaki fonksiyonları birleştirebiliriz.
-def get_requests_from_prometheus(pod_list, prometheus_url):
+def get_requests_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     ignores = get_ignores()
     query = 'kube_pod_container_resource_requests{'+ ignores +'}'
     metrics = get_data(prometheus_url, query)
@@ -52,7 +53,7 @@ def get_requests_from_prometheus(pod_list, prometheus_url):
         pod_list[pod_index].set_pod_requests(metric['metric']['resource'], metric['value'][1])
 
 
-def get_limits_from_prometheus(pod_list, prometheus_url):
+def get_limits_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     ignores = get_ignores()
     query = 'kube_pod_container_resource_limits{'+ ignores +'}'
     metrics = get_data(prometheus_url, query)
@@ -68,7 +69,7 @@ def get_limits_from_prometheus(pod_list, prometheus_url):
         pod_list[pod_index].set_pod_limits(metric['metric']['resource'], metric['value'][1])
 
 
-def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
+def get_cpu_usage_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     ignores = get_ignores()
     query = 'sum(irate(container_cpu_usage_seconds_total{'+ ignores +'container!=""}[5m]))by(node,pod)'
     metrics = get_data(prometheus_url, query)
@@ -84,7 +85,7 @@ def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
         pod_list[pod_index].cpu_usage = metric['value'][1]
 
 
-def get_memory_usage_from_prometheus(pod_list, prometheus_url):
+def get_memory_usage_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     ignores = get_ignores()
     query = 'avg(container_memory_working_set_bytes{'+ ignores +'pod!="",image=""})by(pod)'
     metrics = get_data(prometheus_url, query)

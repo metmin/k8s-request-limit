@@ -10,10 +10,12 @@ import config
 
 pod_list = []
 
-prometheus_api.get_requests_from_prometheus(pod_list, config.PROMETHEUS)
-prometheus_api.get_limits_from_prometheus(pod_list, config.PROMETHEUS)
-prometheus_api.get_cpu_usage_from_prometheus(pod_list, config.PROMETHEUS)
-prometheus_api.get_memory_usage_from_prometheus(pod_list, config.PROMETHEUS)
+
+# Default olarak verildi. İstenirse parametre olarak da geçirilebilir.
+prometheus_api.get_requests_from_prometheus(pod_list)
+prometheus_api.get_limits_from_prometheus(pod_list)
+prometheus_api.get_cpu_usage_from_prometheus(pod_list)
+prometheus_api.get_memory_usage_from_prometheus(pod_list)
 pod_list_funcs.calculate_cpu_diff(pod_list)
 
 

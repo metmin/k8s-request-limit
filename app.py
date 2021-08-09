@@ -1,5 +1,6 @@
 import prometheus_api
 import pod_list_funcs
+import slack_api
 import yaml
 from yaml.loader import SafeLoader
 
@@ -17,11 +18,15 @@ with open('config.yml') as f:
 
 pod_list = []
 
+slack_api.send_notification()
+
+"""
 prometheus_api.get_requests_from_prometheus(pod_list, PROMETHEUS)
 prometheus_api.get_limits_from_prometheus(pod_list, PROMETHEUS)
 prometheus_api.get_cpu_usage_from_prometheus(pod_list, PROMETHEUS)
 prometheus_api.get_memory_usage_from_prometheus(pod_list, PROMETHEUS)
 pod_list_funcs.calculate_cpu_diff(pod_list)
+"""
 
 """
 for pod in pod_list:

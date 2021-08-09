@@ -1,2 +1,3 @@
 ---
   prometheus_server: http://prometheus-server:80
+  cluster_name: request_limit

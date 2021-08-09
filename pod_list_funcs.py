@@ -13,11 +13,12 @@ def calculate_cpu_diff(pod_list):
   
   for pod in pod_list:
 
-    if pod.cpu_req == "" or pod.mem_req == "":
+    if pod.cpu_req == "" or pod.mem_req == "" or pod.cpu_usage == "0":
       # TODO: Slack kanalına ayarlanmadığı ile ilgili mesaj göndersin.
+      # TODO: cpu kullanımı 0'sa da mesaj basabilir.
       continue
 
-    cpu_req   = float(pod.cpu_req) 
+    cpu_req   = float(pod.cpu_req)
     cpu_usage = float(pod.cpu_usage)
     mem_req   = int(pod.mem_req)   / 1024 / 1024
     mem_usage = int(pod.mem_usage) / 1024 / 1024

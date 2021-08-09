@@ -34,7 +34,7 @@ def calculate_cpu_diff(pod_list):
     # abs(usage - request) / usage * 100 
 
       send_notification(config.WEBHOOK_URL, pod, cpu_diff)
-      break
+
       # print(pod.pod_name)
       # print(f"{cpu_req} => {cpu_usage} => {cpu_diff}")
       # print(f"{mem_req} => {mem_usage} => {mem_diff}")

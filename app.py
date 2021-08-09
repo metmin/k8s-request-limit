@@ -6,8 +6,9 @@ from yaml.loader import SafeLoader
 with open('config.yml') as f:
     data = yaml.load(f, Loader=SafeLoader)
     print(data)
+    PROMETHEUS = data['prometheus_server']
 
-PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
+#PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
 # TODO: kube_pod_container_resource_requests conf dosyasından çekilecek.
 # TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak.

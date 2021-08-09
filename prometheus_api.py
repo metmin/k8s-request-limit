@@ -40,7 +40,7 @@ def get_data(query, prometheus_url = config.PROMETHEUS):
 def get_requests_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     ignores = get_ignores()
     query = 'kube_pod_container_resource_requests{'+ ignores +'}'
-    metrics = get_data(prometheus_url, query)
+    metrics = get_data(query, prometheus_url)
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])

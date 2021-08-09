@@ -71,7 +71,6 @@ def get_limits_from_prometheus(pod_list, prometheus_url):
 def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
     ignores = get_ignores()
     query = 'sum(irate(container_cpu_usage_seconds_total{'+ ignores +'container!=""}[2m]))by(node,pod)'
-    print(query)
     metrics = get_data(prometheus_url, query)
 
     for metric in metrics:

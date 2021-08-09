@@ -6,6 +6,15 @@ def send_notification(webhook_url):
     
     webhook = WebhookClient(webhook_url)
 
-    response = webhook.send(text="Hello!")
-    assert response.status_code == 200
-    assert response.body == "ok"
+    response = webhook.send(
+        text="fallback",
+        blocks=[
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "You have a new request:\n*<fakeLink.toEmployeeProfile.com|Fred Enriquez - New device request>*"
+                }
+            }
+        ]
+    )

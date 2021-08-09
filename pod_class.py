@@ -1,3 +1,4 @@
+from os import stat
 import config
 import slack_api
 
@@ -37,6 +38,7 @@ class Pod:
             self.mem_limit = value
 
 
+    @staticmethod
     def get_pod_index(pod_list, pod_name):
         index = 0
         for pod in pod_list:

@@ -8,6 +8,7 @@ with open('config.yml') as f:
     data = yaml.load(f, Loader=SafeLoader)
     print(data)
     PROMETHEUS = data['prometheus_server']
+    webhook_url = data['webhook_url']
 
 #PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
 
@@ -18,7 +19,7 @@ with open('config.yml') as f:
 
 pod_list = []
 
-slack_api.send_notification()
+slack_api.send_notification(webhook_url)
 
 """
 prometheus_api.get_requests_from_prometheus(pod_list, PROMETHEUS)

@@ -2,10 +2,9 @@ from slack_sdk.webhook import WebhookClient
 
 # TODO: webhook URL configden gelicek.
 
-def send_notification():
-    url = "https://hooks.slack.com/services/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"
+def send_notification(webhook_url):
     
-    webhook = WebhookClient(url)
+    webhook = WebhookClient(webhook_url)
 
     response = webhook.send(text="Hello!")
     assert response.status_code == 200

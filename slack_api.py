@@ -3,7 +3,7 @@ from slack_sdk.webhook import WebhookClient
 # TODO: webhook URL configden gelicek.
 
 def send_notification():
-    url = "https://hooks.slack.com/services/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"
+    url = "https://hooks.slack.com/services/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"
     webhook = WebhookClient(url)
     response = webhook.send(
         text="Deneme",

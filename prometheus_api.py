@@ -30,7 +30,7 @@ def get_ignores():
 
 # TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak.
 
-def get_data(query, prometheus_url = config.PROMETHEUS):
+def get_data(prometheus_url = config.PROMETHEUS, query = ""):
   response = requests.get(prometheus_url + '/api/v1/query', params={'query': query})
   results = response.json()['data']['result']
   return results
@@ -40,7 +40,7 @@ def get_data(query, prometheus_url = config.PROMETHEUS):
 def get_requests_from_prometheus(pod_list, prometheus_url = config.PROMETHEUS):
     ignores = get_ignores()
     query = 'kube_pod_container_resource_requests{'+ ignores +'}'
-    metrics = get_data(query, prometheus_url)
+    metrics = get_data(prometheus_url, query)
 
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])

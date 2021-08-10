@@ -1,5 +1,5 @@
 import config
-import slack_api
+
 
 class Pod:
     cpu_req = ""
@@ -9,6 +9,7 @@ class Pod:
     mem_limit = ""
     mem_usage = ""
   
+
     def __init__(self, pod_name, cluster = config.CLUSTER_NAME):
         self.pod_name = pod_name
         self.cluster = cluster

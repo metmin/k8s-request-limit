@@ -7,11 +7,13 @@ import config
 
 pod_list = []
 
-prometheus_api.get_requests_from_prometheus(pod_list, config.PROMETHEUS)
-prometheus_api.get_limits_from_prometheus(pod_list, config.PROMETHEUS)
-prometheus_api.get_cpu_usage_from_prometheus(pod_list, config.PROMETHEUS)
-prometheus_api.get_memory_usage_from_prometheus(pod_list, config.PROMETHEUS)
-pod_list_funcs.calculate_diff(pod_list)
+prometheus_url = config.PROMETHEUS
+
+prometheus_api.get_requests_from_prometheus(pod_list, prometheus_url)
+prometheus_api.get_limits_from_prometheus(pod_list, prometheus_url)
+prometheus_api.get_cpu_usage_from_prometheus(pod_list, prometheus_url)
+prometheus_api.get_memory_usage_from_prometheus(pod_list, prometheus_url)
+pod_list_funcs.calculate_cpu_diff(pod_list)
 
 
 """

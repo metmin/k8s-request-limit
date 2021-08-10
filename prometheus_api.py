@@ -57,29 +57,25 @@ def set_pod_list(metrics, pod_list, param):
 
 
 # Bu ve altındaki fonksiyonları birleştirebiliriz. - Nearly Done
-def get_requests_from_prometheus(pod_list, prometheus_url):
-    ignored_namespaces_query = get_ignored_namespaces_query()
+def get_requests_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
     query = 'kube_pod_container_resource_requests{'+ ignored_namespaces_query +'}'
     metrics = get_data(prometheus_url, query)
     _ = set_pod_list(metrics, pod_list, "set_pod_request")
 
 
-def get_limits_from_prometheus(pod_list, prometheus_url):
-    ignored_namespaces_query = get_ignored_namespaces_query()
+def get_limits_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
     query = 'kube_pod_container_resource_limits{'+ ignored_namespaces_query +'}'
     metrics = get_data(prometheus_url, query)
     _ = set_pod_list(metrics, pod_list, "set_pod_limit")
 
 
-def get_cpu_usage_from_prometheus(pod_list, prometheus_url):
-    ignored_namespaces_query = get_ignored_namespaces_query()
+def get_cpu_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
     query = 'sum(irate(container_cpu_usage_seconds_total{'+ ignored_namespaces_query +'container!=""}[5m]))by(node,pod)'
     metrics = get_data(prometheus_url, query)
     _ = set_pod_list(metrics, pod_list, "cpu_usage")
 
 
-def get_memory_usage_from_prometheus(pod_list, prometheus_url):
-    ignored_namespaces_query = get_ignored_namespaces_query()
+def get_memory_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
     query = 'avg(container_memory_working_set_bytes{'+ ignored_namespaces_query +'pod!="",image=""})by(pod)'
     metrics = get_data(prometheus_url, query)
     _ = set_pod_list(metrics, pod_list, "mem_usage")

@@ -9,10 +9,12 @@ pod_list = []
 
 prometheus_url = config.PROMETHEUS
 
-prometheus_api.get_requests_from_prometheus(pod_list, prometheus_url)
-prometheus_api.get_limits_from_prometheus(pod_list, prometheus_url)
-prometheus_api.get_cpu_usage_from_prometheus(pod_list, prometheus_url)
-prometheus_api.get_memory_usage_from_prometheus(pod_list, prometheus_url)
+
+query = prometheus_api.get_ignored_namespaces_query()
+prometheus_api.get_requests_from_prometheus(pod_list, prometheus_url, query)
+prometheus_api.get_limits_from_prometheus(pod_list, prometheus_url, query)
+prometheus_api.get_cpu_usage_from_prometheus(pod_list, prometheus_url, query)
+prometheus_api.get_memory_usage_from_prometheus(pod_list, prometheus_url, query)
 pod_list_funcs.calculate_diff(pod_list)
 
 

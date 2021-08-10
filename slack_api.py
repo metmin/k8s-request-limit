@@ -28,3 +28,4 @@ def send_notification(notification_type, webhook_url, pod, cpu_diff = "", mem_di
             }
         ]
     )
+    return response

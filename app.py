@@ -2,11 +2,8 @@ import prometheus_api
 import pod_list_funcs
 import config
 
-#PROMETHEUS = 'http://prometheus-server:80' #conf dosyasından çekilecek.
-
 # TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak. - GitLab ci üzerinden ayarlanması içinçalışılacak.
 # TODO: slack entegrasyonu - DONE
-
 
 pod_list = []
 

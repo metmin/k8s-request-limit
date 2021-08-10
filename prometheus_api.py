@@ -24,7 +24,7 @@ def get_ignored_namespaces_query():
     query = 'namespace!~"'
     for namespace in ignore_namespaces:
         query += namespace + '|' 
-    query = '"'
+    query += '"'
     return query
 
 

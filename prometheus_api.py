@@ -31,6 +31,7 @@ def get_ignored_namespaces_query():
 # TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak.
 
 def get_data(prometheus_url, query = ""):
+    print(query)
     response = requests.get(prometheus_url + '/api/v1/query', params={'query': query})
     results = response.json()['data']['result']
     return results

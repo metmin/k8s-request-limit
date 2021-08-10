@@ -12,7 +12,7 @@ def get_pod_index(pod_list, pod_name):
     return -1
 
 
-def calculate_cpu_diff(pod_list):
+def calculate_diff(pod_list):
   
     for pod in pod_list:
 

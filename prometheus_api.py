@@ -21,10 +21,10 @@ def get_ignored_namespaces_query():
     "security"
     ]
 
-    query = ""
+    query = 'namespace!~"'
     for namespace in ignore_namespaces:
-        query += f'namespace!="{namespace}",' 
-
+        query += namespace + '|' 
+    query = '"'
     return query
 
 
@@ -70,13 +70,13 @@ def get_limits_from_prometheus(pod_list, prometheus_url, ignored_namespaces_quer
 
 
 def get_cpu_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
-    query = 'sum(irate(container_cpu_usage_seconds_total{'+ ignored_namespaces_query +'container!=""}[5m]))by(node,pod)'
+    query = 'sum(irate(container_cpu_usage_seconds_total{container!="",'+ ignored_namespaces_query +'}[5m]))by(node,pod)'
     metrics = get_data(prometheus_url, query)
     _ = set_pod_list(metrics, pod_list, "cpu_usage")
 
 
 def get_memory_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
-    query = 'avg(container_memory_working_set_bytes{'+ ignored_namespaces_query +'pod!="",image=""})by(pod)'
+    query = 'avg(container_memory_working_set_bytes{pod!="",image="",'+ ignored_namespaces_query +'})by(pod)'
     metrics = get_data(prometheus_url, query)
     _ = set_pod_list(metrics, pod_list, "mem_usage")
         

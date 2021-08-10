@@ -28,7 +28,7 @@ def get_ignored_namespaces_query():
     return query
 
 
-# TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak.
+# TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak. - Done
 
 def get_data(prometheus_url, query = ""):
     print(query)

@@ -18,7 +18,7 @@ prometheus_api.get_cpu_usage_from_prometheus(pod_list, prometheus_url, query)
 prometheus_api.get_memory_usage_from_prometheus(pod_list, prometheus_url, query)
 
 diff_message, error_message = pod_list_funcs.calculate_diff(pod_list)
-_ = slack_api.send_notification(config.WEBHOOK_URL, diff_message, error_message)
+_, _ = slack_api.send_notification(config.WEBHOOK_URL, diff_message, error_message)
 
 """
 for pod in pod_list:

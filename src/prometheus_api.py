@@ -35,8 +35,6 @@ def get_ignored_namespaces_query():
     return query
 
 
-# TODO prometheus_url parametresi, bu dosyanın çağırıldığı yerden verilecek, çağıran yer conf dosyasından okuyacak. - Done
-
 def get_data(prometheus_url, query = "", with_range = False):
     params = {'query': query}
 
@@ -70,7 +68,6 @@ def set_pod_list(metrics, pod_list, param):
     return True
 
 
-# Bu ve altındaki fonksiyonları birleştirebiliriz. - Nearly Done
 def get_requests_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
     query = 'kube_pod_container_resource_requests{'+ ignored_namespaces_query +'}'
     metrics = get_data(prometheus_url, query)

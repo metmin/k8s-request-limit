@@ -18,7 +18,7 @@ def send_notification(webhook_url, diff_message, error_message):
 
     webhook = WebhookClient(webhook_url)
 
-    response = webhook.send(
+    response_diff = webhook.send(
         text="Request Usage Difference Detected",
         blocks=[
             {
@@ -31,7 +31,7 @@ def send_notification(webhook_url, diff_message, error_message):
         ]
     )
 
-    response = webhook.send(
+    response_err = webhook.send(
         text="Error Detected",
         blocks=[
             {
@@ -44,4 +44,4 @@ def send_notification(webhook_url, diff_message, error_message):
         ]
     )
 
-    return response
+    return response_diff, response_err

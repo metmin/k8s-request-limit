@@ -40,7 +40,7 @@ def get_ignored_namespaces_query():
 def get_data(prometheus_url, query = "", with_range = False):
     params = {'query': query}
 
-    if with_range = True:
+    if with_range == True:
         today, yesterday = get_today_yesterday()
         params['start'] = yesterday
         params['end'] = today

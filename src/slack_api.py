@@ -2,8 +2,9 @@ from slack_sdk.webhook import WebhookClient
 
 # TODO: webhook URL configden gelicek.
 
-def send_notification(notification_type, webhook_url, pod, cpu_diff = "", mem_diff = ""):
+def send_notification(webhook_url, diff_message, error_message):
     
+    """
     # Burası ayrı bir fonksiyondan gelebilir.
     if notification_type == "DIFF":
         title = "Request Usage Difference Detected"
@@ -13,19 +14,34 @@ def send_notification(notification_type, webhook_url, pod, cpu_diff = "", mem_di
         message = f"There is an error about {pod.cluster}/{pod.pod_name} cpu or memory request"
     else:
         return 0
+    """
 
     webhook = WebhookClient(webhook_url)
 
     response = webhook.send(
-        text=title,
+        text="Request Usage Difference Detected",
         blocks=[
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": message
+                    "text": diff_message
                 }
             }
         ]
     )
+
+    response = webhook.send(
+        text="Error Detected",
+        blocks=[
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": error_message
+                }
+            }
+        ]
+    )
+
     return response

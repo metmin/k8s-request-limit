@@ -1,5 +1,6 @@
 import prometheus_api
 import pod_list_funcs
+import slack_api
 import config
 
 # TODO: cluster name (ör: p-checkout-p1-2moon) conf'a eklenecek ileride gitlab pipeline'ından verilecek. Amaç: slack'e mesaj gönderirken kullanılacak. - GitLab ci üzerinden ayarlanması içinçalışılacak.
@@ -15,8 +16,9 @@ prometheus_api.get_requests_from_prometheus(pod_list, prometheus_url, query)
 prometheus_api.get_limits_from_prometheus(pod_list, prometheus_url, query)
 prometheus_api.get_cpu_usage_from_prometheus(pod_list, prometheus_url, query)
 prometheus_api.get_memory_usage_from_prometheus(pod_list, prometheus_url, query)
-pod_list_funcs.calculate_diff(pod_list)
 
+diff_message, error_message = pod_list_funcs.calculate_diff(pod_list)
+_ = slack_api.send_notification(config.WEBHOOK_URL, diff_message, error_message)
 
 """
 for pod in pod_list:

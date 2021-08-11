@@ -13,7 +13,7 @@ def get_today_yesterday ():
 def get_ignored_namespaces_query():
     ignore_namespaces = [
     "consul",
-    "default",
+    #"default",
     "external",
     "gatekeeper-system",
     "goldilocks",
@@ -46,7 +46,6 @@ def get_data(prometheus_url, query = "", with_range = False):
         params['end']   = today
 
     response = requests.get(prometheus_url + '/api/v1/query', params=params)
-    print(response.url)
     results = response.json()['data']['result']
     return results
 
@@ -85,7 +84,7 @@ def get_limits_from_prometheus(pod_list, prometheus_url, ignored_namespaces_quer
 
 
 def get_cpu_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
-    query = 'sum(irate(container_cpu_usage_seconds_total{container!="",'+ ignored_namespaces_query +'}[5m]))by(pod)'
+    query = 'sum(irate(container_cpu_usage_seconds_total{container!="",'+ ignored_namespaces_query +'}[60m]))by(pod)'
     metrics = get_data(prometheus_url, query, True)
     _ = set_pod_list(metrics, pod_list, "cpu_usage")
 
@@ -94,4 +93,3 @@ def get_memory_usage_from_prometheus(pod_list, prometheus_url, ignored_namespace
     query = 'avg(container_memory_working_set_bytes{pod!="",image="",'+ ignored_namespaces_query +'})by(pod)'
     metrics = get_data(prometheus_url, query, True)
     _ = set_pod_list(metrics, pod_list, "mem_usage")
-        

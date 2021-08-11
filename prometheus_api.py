@@ -42,11 +42,10 @@ def get_data(prometheus_url, query = "", with_range = False):
 
     if with_range == True:
         today, yesterday = get_today_yesterday()
-        params['start'] = yesterday
-        params['end'] = today
+        params['start'] = today
+        params['end'] = yesterday
 
     response = requests.get(prometheus_url + '/api/v1/query', params=params)
-    print(response)
     results = response.json()['data']['result']
     return results
 

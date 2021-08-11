@@ -35,7 +35,7 @@ def calculate_diff(pod_list):
 
         if cpu_diff > 10000 or mem_diff > 150:
             #_ = slack_api.send_notification("DIFF", config.WEBHOOK_URL, pod, cpu_diff, mem_diff)
-            diff_message += f"```Cluster Name: {pod.cluster}\n\tPod Name: {pod.pod_name}\n\t\tCPU Request: {pod.cpu_req}\n\t\tCPU Usage: {pod.cpu_usage}\n\t\tCPU Diff: %{cpu_diff}---------------\n\t\tMem Request: {pod.cpu_req}\n\t\tMem Usage: {pod.cpu_usage}\n\t\tMem Diff: %{mem_diff}```\n"
+            diff_message += f"```Cluster Name: {pod.cluster}\n\tPod Name: {pod.pod_name}\n\t\tCPU Request: {pod.cpu_req}\n\t\tCPU Usage: {pod.cpu_usage}\n\t\tCPU Diff: %{cpu_diff}\n--------------------\n\t\tMem Request: {pod.cpu_req}\n\t\tMem Usage: {pod.cpu_usage}\n\t\tMem Diff: %{mem_diff}```\n"
     
 
     return diff_message, error_message

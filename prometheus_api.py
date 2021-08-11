@@ -13,7 +13,7 @@ def get_today_yesterday ():
 def get_ignored_namespaces_query():
     ignore_namespaces = [
     "consul",
-    #"default",
+    "default",
     "external",
     "gatekeeper-system",
     "goldilocks",

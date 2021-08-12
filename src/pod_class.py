@@ -1,6 +1,3 @@
-import config
-
-
 class Pod:
     cpu_req = ""
     cpu_limit = ""
@@ -10,17 +7,10 @@ class Pod:
     mem_usage = ""
   
 
-    def __init__(self, pod_name, cluster = config.CLUSTER_NAME):
+    def __init__(self, pod_name, cluster_name, team_name):
         self.pod_name = pod_name
-        self.cluster = cluster
-        '''
-        self.cpu_req = cpu_req
-        self.cpu_limit = cpu_limit
-        self.cpu_usage = cpu_usage
-        self.mem_req = mem_req
-        self.mem_limit = mem_limit
-        self.mem_usage = mem_usage
-        '''
+        self.cluster_name = cluster_name
+        self.team_name = team_name
 
 
     def set_pod_requests(self, resource, value):

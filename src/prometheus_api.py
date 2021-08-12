@@ -13,7 +13,6 @@ def get_today_yesterday ():
 def get_ignored_namespaces_query():
     ignore_namespaces = [
     "consul",
-    #"default",
     "external",
     "gatekeeper-system",
     "goldilocks",
@@ -51,9 +50,9 @@ def get_data(prometheus_url, query = "", with_range = False):
 #Burada "param" parametresi yerine daha iyi bir isim seçilebilir.
 def set_pod_list(metrics, pod_list, param):
     for metric in metrics:
-        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'])
+        pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'], metric['metric']['_cluster'], metric['metric']['_team'])
         if pod_index == -1:
-            pod = pod_class.Pod(metric['metric']['pod'])
+            pod = pod_class.Pod(metric['metric']['pod'], metric['metric']['_cluster'], metric['metric']['_team'])
             pod_list.append(pod)
             pod_index = len(pod_list) - 1
 
@@ -81,12 +80,12 @@ def get_limits_from_prometheus(pod_list, prometheus_url, ignored_namespaces_quer
 
 
 def get_cpu_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
-    query = 'sum(irate(container_cpu_usage_seconds_total{container!="",'+ ignored_namespaces_query +'}[60m]))by(pod)'
+    query = 'sum(irate(container_cpu_usage_seconds_total{container!="",'+ ignored_namespaces_query +'}[60m]))by(pod, _cluster, _team)'
     metrics = get_data(prometheus_url, query, True)
     _ = set_pod_list(metrics, pod_list, "cpu_usage")
 
 
 def get_memory_usage_from_prometheus(pod_list, prometheus_url, ignored_namespaces_query):
-    query = 'avg(container_memory_working_set_bytes{pod!="",image="",'+ ignored_namespaces_query +'})by(pod)'
+    query = 'avg(container_memory_working_set_bytes{pod!="",image="",'+ ignored_namespaces_query +'})by(pod, _cluster, _team)'
     metrics = get_data(prometheus_url, query, True)
     _ = set_pod_list(metrics, pod_list, "mem_usage")

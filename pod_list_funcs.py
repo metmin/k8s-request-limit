@@ -1,3 +1,5 @@
+import json
+
 def get_pod_index(pod_list, pod_name, cluster_name, team_name):
     index = 0
     for pod in pod_list:
@@ -8,8 +10,9 @@ def get_pod_index(pod_list, pod_name, cluster_name, team_name):
 
 
 def calculate_diff(pod_list):
-    diff_message = ""
     error_message = ""
+
+    diff_list = {}
 
     for pod in pod_list:
         if pod.cpu_req == "" or pod.mem_req == "" or pod.cpu_usage == "0" or pod.cpu_usage == "":
@@ -25,7 +28,21 @@ def calculate_diff(pod_list):
         cpu_diff =  abs(cpu_usage - cpu_req) / cpu_usage * 100
         mem_diff =  abs(mem_usage - mem_req) / mem_usage * 100
 
-        if cpu_diff > 20 or mem_diff > 20:
-            diff_message += f"```Team Name: {pod.team_name}\nCluster Name: {pod.cluster_name}\n\tPod Name: {pod.pod_name}\n\t\tCPU Request: {pod.cpu_req}\n\t\tCPU Usage: {pod.cpu_usage}\n\t\tCPU Diff: %{cpu_diff}\n\t\t--------------------\n\t\tMem Request: {pod.mem_req}\n\t\tMem Usage: {pod.mem_usage}\n\t\tMem Diff: %{mem_diff}```\n"
+        if cpu_diff > 150000 or mem_diff > 150000:
 
-    return diff_message, error_message
+            if pod.team_name not in diff_list:
+                diff_list[pod.team_name] = []
+
+            diff_list[pod.team_name].append(
+                {
+                    "cluster"   : pod.cluster_name,
+                    "pod"       : pod.pod_name,
+                    "cpu_req"   : pod.cpu_req,
+                    "cpu_usage" : pod.cpu_usage,
+                    "cpu_diff"  : cpu_diff,
+                    "mem_req"   : pod.mem_req,
+                    "mem_usage" : pod.mem_usage,
+                    "mem_diff"  : mem_diff,
+                })
+
+    return diff_list

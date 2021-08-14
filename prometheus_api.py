@@ -47,7 +47,6 @@ def get_data(prometheus_url, query = "", with_range = False):
     return results
 
 
-#Burada "param" parametresi yerine daha iyi bir isim seçilebilir.
 def set_pod_list(metrics, pod_list, param):
     for metric in metrics:
         pod_index = pod_list_funcs.get_pod_index(pod_list, metric['metric']['pod'], metric['metric']['_cluster'], metric['metric']['_team'])

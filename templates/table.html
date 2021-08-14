@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div style="margin: 10px 0;"></div>
+
+    <div class="container py-5">
+        <div class="row py-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="card rounded shadow border-0">
+                    <div class="card-body p-5 bg-white rounded">
+                        <div class="table-responsive">
+                            <table id="dataTable" style="width:100%" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        {% for header in headings %}
+                                        <th>{{ header }}</th>
+                                        {% endfor %}
+                                </thead>
+                                <tbody>
+                                    {% for team, pods in data.items() %}
+                                        {% for pod in pods %}
+                                            <tr>
+                                                <td>{{ team }}</td>
+                                                <td>{{ pod['cluster'] }}</td>
+                                                <td>{{ pod['pod'] }}</td>
+                                                <td>{{ pod['cpu_req'] }}</td>
+                                                <td>{{ pod['cpu_usage'] }}</td>
+                                                <td>{{ pod['cpu_diff'] }}</td>
+                                                <td>{{ pod['mem_req'] }}</td>
+                                                <td>{{ pod['mem_usage'] }}</td>
+                                                <td>{{ pod['mem_diff'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(document).ready(function () {
+                $('#dataTable').DataTable();
+            });
+        });
+    </script>
+</body>
+
+</html>

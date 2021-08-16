@@ -28,7 +28,7 @@ def calculate_diff(pod_list):
         cpu_diff =  abs(cpu_usage - cpu_req) / cpu_usage * 100
         mem_diff =  abs(mem_usage - mem_req) / mem_usage * 100
 
-        if cpu_diff > 150000 or mem_diff > 150000:
+        if cpu_diff > 15000 or mem_diff > 15000:
 
             if pod.team_name not in diff_list:
                 diff_list[pod.team_name] = []

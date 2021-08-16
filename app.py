@@ -18,28 +18,31 @@ headings = [
     "Memory Difference [%]",
 ]
 
+pod_list = []
+
 @app.route("/")
 def table():
+    global pod_list
 
-    pod_list = []
+    if len(pod_list) == 0:
 
-    for prometheus_url in config.PROMETHEUS:
-        pod_list_temp = []
-        query = prometheus_api.get_ignored_namespaces_query()
+        for prometheus_url in config.PROMETHEUS:
+            pod_list_temp = []
+            query = prometheus_api.get_ignored_namespaces_query()
 
-        prometheus_api.get_requests_from_prometheus(
-            pod_list_temp, prometheus_url, query)
+            prometheus_api.get_requests_from_prometheus(
+                pod_list_temp, prometheus_url, query)
 
-        prometheus_api.get_limits_from_prometheus(
-            pod_list_temp, prometheus_url, query)
+            prometheus_api.get_limits_from_prometheus(
+                pod_list_temp, prometheus_url, query)
 
-        prometheus_api.get_cpu_usage_from_prometheus(
-            pod_list_temp, prometheus_url, query)
- 
-        prometheus_api.get_memory_usage_from_prometheus(
-            pod_list_temp, prometheus_url, query)
+            prometheus_api.get_cpu_usage_from_prometheus(
+                pod_list_temp, prometheus_url, query)
+    
+            prometheus_api.get_memory_usage_from_prometheus(
+                pod_list_temp, prometheus_url, query)
 
-        pod_list += pod_list_temp
+            pod_list += pod_list_temp
 
     diff_list = pod_list_funcs.calculate_diff(pod_list)
     # print(diff_message)

@@ -1,5 +1,3 @@
-import json
-
 def get_pod_index(pod_list, pod_name, cluster_name, team_name):
     index = 0
     for pod in pod_list:

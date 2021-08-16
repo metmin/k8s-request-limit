@@ -1,11 +1,8 @@
-import yaml
-from yaml.loader import SafeLoader
+import os
 
 PROMETHEUS   = []
 WEBHOOK_URL  = ""
 
-with open('config.yml') as f:
-    config = yaml.load(f, Loader=SafeLoader)
-
-    PROMETHEUS   = config['prometheus_server']
-    WEBHOOK_URL  = config['webhook_url']
+PROMETHEUS.append(os.environ['THANOS_CHECKOUT_EARTH'])
+PROMETHEUS.append(os.environ['THANOS_DELIVERY_EARTH'])
+WEBHOOK_URL = os.environ['WEBHOOK_URL']

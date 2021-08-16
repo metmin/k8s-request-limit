@@ -38,11 +38,11 @@
                                     <td>{{ pod['cluster'] }}</td>
                                     <td>{{ pod['pod'] }}</td>
                                     <td>{{ pod['cpu_req'] }}</td>
-                                    <td>{{ pod['cpu_usage'] }}</td>
-                                    <td>{{ pod['cpu_diff'] }}</td>
-                                    <td>{{ pod['mem_req'] }}</td>
-                                    <td>{{ pod['mem_usage'] }}</td>
-                                    <td>{{ pod['mem_diff'] }}</td>
+                                    <td>{{ "%.6f" | format(pod['cpu_usage'] | float) }}</td>
+                                    <td>{{ "%.1f" | format(pod['cpu_diff'] | float) }}</td>
+                                    <td>{{ (pod['mem_req'] | int) / 1024 / 1024 }}</td>
+                                    <td>{{ "%.1f" | format((pod['mem_usage'] | int) / 1024 / 1024) }}</td>
+                                    <td>{{ "%.1f" | format(pod['mem_diff'] | float) }}</td>
                                 </tr>
                             {% endfor %}
                         {% endfor %}

@@ -13,8 +13,8 @@ headings = [
     "Cpu Request",
     "Cpu Usage",
     "Cpu Difference [%]",
-    "Memory Request",
-    "Memory Usage",
+    "Memory Request [Mb]",
+    "Memory Usage [Mb]",
     "Memory Difference [%]",
 ]
 
